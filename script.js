@@ -49,7 +49,7 @@ document.getElementById('createBtn').addEventListener('click', () => {
         id: webhookId,
         name: name,
         description: desc,
-        url: `${window.location.origin}/webhook/${webhookId}`,
+        url: `${window.location.origin}/api/webhook/${webhookId}`,
         created: new Date().toISOString(),
         requests: 0,
         logs: []
