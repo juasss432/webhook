@@ -197,6 +197,29 @@ async function viewLogs(id) {
     });
 }
 
+async function clearLogs(id) {
+    if (!confirm('Are you sure you want to clear the logs for this webhook?')) return;
+
+    try {
+        // Send a POST to a "clear" endpoint or PATCH/DELETE
+        const response = await fetch(`/api/webhook/${id}/clear`, { method: 'POST' });
+        if (!response.ok) throw new Error('Failed to clear logs');
+
+        // Update localStorage and re-render
+        const webhook = webhooks.find(w => w.id === id);
+        if (webhook) {
+            webhook.logs = [];
+            webhook.requests = 0;
+            localStorage.setItem('webhooks', JSON.stringify(webhooks));
+            renderWebhooks();
+            showToast('Logs cleared!');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Error clearing logs');
+    }
+}
+
 // Delete webhook
 function deleteWebhook(id) {
     if (!confirm('Are you sure you want to delete this webhook?')) return;
