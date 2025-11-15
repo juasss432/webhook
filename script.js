@@ -150,7 +150,7 @@ async function viewLogs(id) {
 
     try {
         // Fetch logs from backend
-        const response = await fetch(`/webhook/${id}/logs`);
+        const response = await fetch(`/api/webhook/${id}`);
         const data = await response.json();
         webhook.logs = data.logs || [];
         
